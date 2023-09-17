@@ -152,17 +152,19 @@ if(SERVER)then
 	end
 
 	function ENT:Use(activator)
-		if not activator:KeyDown(JMod.Config.General.AltFunctionKey) then return end
-		if self.Growth >= 66 then
-			local Maize = ents.Create("ent_jack_gmod_ezcorn_ear")
-			Maize:SetMaterial("models/jmod/props/plants/cornv81t_d")
-			Maize:SetPos(self:GetPos() + self:GetUp() * 5)
-			Maize:Spawn()
-			Maize:Activate()
+		local Alt = activator:KeyDown(JMod.Config.General.AltFunctionKey)
+		if Alt and (self.Growth >= 66) then
+			for i = 1, 2 do
+				local Maize = ents.Create("ent_jack_gmod_ezcorn_ear")
+				Maize:SetPos(self:GetPos() + self:GetUp() * 5 * i)
+				Maize:Spawn()
+				Maize:Activate()
+			end
 			--
-			self.Growth = 30
+			self:Remove()
+			--[[self.Growth = 30
 			self.Helf = 33
-			self:UpdateAppearance()
+			self:UpdateAppearance()]]--
 		end
 	end
 
@@ -232,5 +234,5 @@ elseif CLIENT then
 		render.DrawQuadEasy(SelfPos, self:GetUp(), 150, 150, Col, 0)
 		--]]
 	end
-	language.Add("ent_jack_gmod_eztree", "EZ Corn")
+	language.Add("ent_jack_gmod_ezcornstalk", "EZ Corn")
 end

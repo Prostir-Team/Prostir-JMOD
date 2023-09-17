@@ -5,7 +5,7 @@ ENT.Author = "Jackarunda"
 ENT.Information = "glhfggwpezpznore"
 ENT.PrintName = "EZ Corn Cob"
 ENT.Category = "JMod - EZ Misc."
-ENT.Spawnable = false -- For now...
+ENT.Spawnable = true -- For now...
 ENT.AdminOnly = false
 ---
 ENT.JModEZstorable = true
@@ -23,6 +23,7 @@ end
 if SERVER then
 	function ENT:Initialize()
 		self:SetModel("models/jmod/props/plants/corn_cob.mdl")
+		self:SetMaterial("models/jmod/props/plants/cornv81t_d")
 		self:PhysicsInit(SOLID_VPHYSICS)
 		self:SetMoveType(MOVETYPE_VPHYSICS)
 		self:SetSolid(SOLID_VPHYSICS)
@@ -98,18 +99,7 @@ if SERVER then
 		local State = self:GetState()
 
 		if State == STATE_NORMAL then
-			if ply:KeyDown(IN_SPEED) then
-				if Alt then
-					JMod.SetEZowner(self, activator)
-					self:Bury(activator)
-					JMod.Hint(activator, "water seed")
-				else
-					self.EZremoveSelf = false
-					self.LastTouchedTime = Time
-					activator:PickupObject(self)
-					JMod.Hint(activator, "alt to plant")
-				end
-			else
+			--if ply:KeyDown(IN_SPEED) then
 				if Alt then
 					ply.EZnutrition = ply.EZnutrition or {
 						NextEat = 0,
@@ -129,19 +119,30 @@ if SERVER then
 						end
 					end
 				else
+					self.EZremoveSelf = false
+					self.LastTouchedTime = Time
+					ply:PickupObject(self)
+					JMod.Hint(ply, "alt to plant")
+				end
+			--[[else
+				if Alt then
+					JMod.SetEZowner(self, ply)
+					self:Bury(ply)
+					JMod.Hint(ply, "water seed")
+				else
 					ply:PickupObject(self)
 					JMod.Hint(ply, "alt to eat")
 					self.EZremoveSelf = false
 					self.LastTouchedTime = Time
 				end
-			end
+			end]]--
 		elseif State == STATE_BURIED then
 			self:DrawShadow(true)
 			constraint.RemoveAll(self)
 			self:SetPos(self:GetPos() + self:GetUp() * 40)
 			self:SetState(STATE_NORMAL)
 			self:SetCollisionGroup(COLLISION_GROUP_NONE)
-			activator:PickupObject(self)
+			ply:PickupObject(self)
 		end
 	end
 
@@ -173,7 +174,7 @@ if SERVER then
 			self.Hydration = math.Clamp(self.Hydration + Water, 0, 100)
 			if (self.Hydration >= 50) then
 				self:SetState(STATE_GERMINATING)
-				self:SetColor(Color(150, 150, 150))
+				self:SetColor(Color(142, 172, 125))
 			elseif (self.Hydration <= 1) and ((Time - 600) > self.LastWateredTime) then
 				self:Degenerate()
 			end
@@ -191,7 +192,7 @@ if SERVER then
 		local Pos, Owner, WatToGive = self:GetPos(), self.EZowner, self.Hydration
 		self:Remove()
 		timer.Simple(.1, function()
-			local Stalk = ents.Create("ent_jack_gmod_ezcorn_stalk")
+			local Stalk = ents.Create("ent_jack_gmod_ezcornstalk")
 			Stalk:SetPos(Pos + Vector(0, 0, 10))
 			Stalk:Spawn()
 			Stalk:Activate()
@@ -226,5 +227,5 @@ elseif CLIENT then
 	function ENT:Draw()
 		self:DrawModel()
 	end
-	language.Add("ent_jack_gmod_ezcorn_ear", "EZ Corn Cob")
+	language.Add("ent_jack_gmod_ezcornear", "EZ Corn Cob")
 end
