@@ -1,46 +1,4 @@
 ﻿--[[
-1 axe
-1 bat
-1 bow
-1 combat knife
-1 hatchet
-1 pocket knife
-1 sledgehammer
-1 sword
-2 blunderbuss
-2 musket
-3 cap and ball revolver
-4 break-action shotgun
-4 revolver
-4 single shot rifle
-5 crossbow
-6 bolt action rifle
-6 lever-action rifle
-6 magnum revolver
-6 pump-action shotgun
-6 shot revolver
-7 grenade launcher
-7 pistol
-7 plinking pistol
-7 pocket pistol
-7 sniper rifle
-8 anti-materiel sniper rifle
-8 assault rifle
-8 battle rifle
-8 carbine
-8 designated marksman rifle
-8 machine pistol
-8 magnum pistol
-8 rocket launcher
-8 semiautomatic shotgun
-8 submachine gun
-9 anti-materiel rifle
-9 fully-automatic shotgun
-9 light machine gun
-9 medium machine gun
-10 multiple grenade launcher
-10 multiple rocket launcher
--------------------------------
 "VertexlitGeneric"
 {
    "$basetexture" "models/weapons/v_models/CoD4/m4a1/weapon_m4_col"
