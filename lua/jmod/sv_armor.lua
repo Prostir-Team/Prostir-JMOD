@@ -197,12 +197,8 @@ local function LocationalDmgHandling(ply, hitgroup, dmg)
 		local AmmoName = game.GetAmmoName(AmmoTypeID)
 
 		if AmmoName then
-			local AmmoInfo = JMod.GetAmmoSpecs(AmmoName)
-
-			if AmmoInfo then
-				AmmoAPmul = 1 - (AmmoInfo.armorpiercing or 0)
-				AmmoHPmul = 1 + (AmmoInfo.expanding or 0)
-			end
+			AmmoAPmul = 1
+			AmmoHPmul = 1
 		end
 	end
 
@@ -291,12 +287,8 @@ local function FullBodyDmgHandling(ply, dmg, biological, isInSewage)
 		local AmmoName = game.GetAmmoName(AmmoTypeID)
 
 		if AmmoName then
-			local AmmoInfo = JMod.GetAmmoSpecs(AmmoName)
-
-			if AmmoInfo then
-				AmmoAPmul = 1 - (AmmoInfo.armorpiercing or 0)
-				AmmoHPmul = 1 + (AmmoInfo.expanding or 0)
-			end
+			AmmoAPmul = 1
+			AmmoHPmul = 1
 		end
 	end
 

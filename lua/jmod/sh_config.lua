@@ -2108,8 +2108,6 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 		file.Write("jmod_config.txt", util.TableToJSON(JMod.Config, true))
 		print("JMOD: config reset to default")
 	end
-	-- This is to make sure the ammo types are saved on config reload
-	JMod.LoadAmmoTable(JMod.AmmoTable)
 
 	print("JMOD: updating recipies...")
 	for k, v in pairs(ents.GetAll())do

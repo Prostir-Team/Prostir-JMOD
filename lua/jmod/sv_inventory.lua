@@ -1,4 +1,6 @@
 ﻿function JMod.EZ_Open_Inventory(ply)
+	ply.JModInv = ply.JModInv or {}
+
 	net.Start("JMod_Inventory")
 	net.WriteString(ply:GetModel())
 	net.WriteTable(ply.JModInv)
