@@ -17,8 +17,8 @@ net.Receive("JMod_PlayerSpawn", function()
 	local DoHints = tobool(net.ReadBit())
 
 	if not input.LookupBinding("+walk") then
-		chat.AddText(Color(255, 0, 0), "Your Walk key is not bound; JMod entities will be mostly unusable.")
-		chat.AddText(Color(255, 0, 0), "Please bind it in Settings or with concommand 'bind alt +walk'.")
+		chat.AddText(Color(255, 0, 0), "У вас не встановлена клавіша для ходьби; JMod ентіті для вас будуть безкорисними.")
+		chat.AddText(Color(255, 0, 0), "Будь ласка встановіть її в налаштуваннях, або використовуючи команду 'bind alt +walk'.")
 	end
 end)
 
