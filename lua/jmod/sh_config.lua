@@ -128,7 +128,38 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 					description = "A random collection of armor*. *Jackarunda Industries outsources package sorting. We are not liable for any unusual items.",
 					category = "Apparel",
 					results = {
-						{"RAND", JMod.ArmorTable["GasMask"].ent, JMod.ArmorTable["BallisticMask"].ent, JMod.ArmorTable["NightVisionGoggles"].ent, JMod.ArmorTable["ThermalGoggles"].ent, JMod.ArmorTable["Respirator"].ent, JMod.ArmorTable["Light-Helmet"].ent, JMod.ArmorTable["Medium-Helmet"].ent, JMod.ArmorTable["Heavy-Helmet"].ent, JMod.ArmorTable["Riot-Helmet"].ent, JMod.ArmorTable["Heavy-Riot-Helmet"].ent, JMod.ArmorTable["Ultra-Heavy-Helmet"].ent, JMod.ArmorTable["Metal Bucket"].ent, JMod.ArmorTable["Metal Pot"].ent, JMod.ArmorTable["Ceramic Pot"].ent, JMod.ArmorTable["Traffic Cone"].ent, JMod.ArmorTable["Light-Vest"].ent, JMod.ArmorTable["Medium-Light-Vest"].ent, JMod.ArmorTable["Medium-Vest"].ent, JMod.ArmorTable["Medium-Heavy-Vest"].ent, JMod.ArmorTable["Heavy-Vest"].ent, JMod.ArmorTable["Pelvis-Panel"].ent, JMod.ArmorTable["Light-Left-Shoulder"].ent, JMod.ArmorTable["Heavy-Left-Shoulder"].ent, JMod.ArmorTable["Light-Right-Shoulder"].ent, JMod.ArmorTable["Heavy-Right-Shoulder"].ent, JMod.ArmorTable["Left-Forearm"].ent, JMod.ArmorTable["Right-Forearm"].ent, JMod.ArmorTable["Light-Left-Thigh"].ent, JMod.ArmorTable["Heavy-Left-Thigh"].ent, JMod.ArmorTable["Light-Right-Thigh"].ent, JMod.ArmorTable["Heavy-Right-Thigh"].ent, JMod.ArmorTable["Left-Calf"].ent, JMod.ArmorTable["Right-Calf"].ent, JMod.ArmorTable["Hazmat Suit"].ent, 6}
+						{"RAND", JMod.ArmorTable["GasMask"].ent, 
+						JMod.ArmorTable["BallisticMask"].ent, 
+						JMod.ArmorTable["Respirator"].ent, 
+						JMod.ArmorTable["Light-Helmet"].ent, 
+						JMod.ArmorTable["Medium-Helmet"].ent, 
+						JMod.ArmorTable["Heavy-Helmet"].ent, 
+						JMod.ArmorTable["Riot-Helmet"].ent, 
+						JMod.ArmorTable["Heavy-Riot-Helmet"].ent, 
+						JMod.ArmorTable["Ultra-Heavy-Helmet"].ent, 
+						JMod.ArmorTable["Metal Bucket"].ent, 
+						JMod.ArmorTable["Metal Pot"].ent, 
+						JMod.ArmorTable["Ceramic Pot"].ent, 
+						JMod.ArmorTable["Traffic Cone"].ent, 
+						JMod.ArmorTable["Light-Vest"].ent, 
+						JMod.ArmorTable["Medium-Light-Vest"].ent, 
+						JMod.ArmorTable["Medium-Vest"].ent, 
+						JMod.ArmorTable["Medium-Heavy-Vest"].ent, 
+						JMod.ArmorTable["Heavy-Vest"].ent, 
+						JMod.ArmorTable["Pelvis-Panel"].ent, 
+						JMod.ArmorTable["Light-Left-Shoulder"].ent, 
+						JMod.ArmorTable["Heavy-Left-Shoulder"].ent, 
+						JMod.ArmorTable["Light-Right-Shoulder"].ent, 
+						JMod.ArmorTable["Heavy-Right-Shoulder"].ent, 
+						JMod.ArmorTable["Left-Forearm"].ent, 
+						JMod.ArmorTable["Right-Forearm"].ent, 
+						JMod.ArmorTable["Light-Left-Thigh"].ent, 
+						JMod.ArmorTable["Heavy-Left-Thigh"].ent, 
+						JMod.ArmorTable["Light-Right-Thigh"].ent, 
+						JMod.ArmorTable["Heavy-Right-Thigh"].ent, 
+						JMod.ArmorTable["Left-Calf"].ent, 
+						JMod.ArmorTable["Right-Calf"].ent, 
+						JMod.ArmorTable["Hazmat Suit"].ent, 6}
 					}
 				},
 				["basic parts"] = {
@@ -228,7 +259,7 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 					}
 				},
 				["toolboxes"] = {
-					description = "Two toolboxes for crafting, nailing, salvaging and packaging items. ",
+					description = "Two toolboxes for crafting, salvaging and packaging items. ",
 					category = "Tools",
 					results = {
 						{"ent_jack_gmod_eztoolbox", 2}
@@ -414,10 +445,10 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 					}
 				},
 				["slams"] = {
-					description = "5 SLAMs that can be planted on walls.",
+					description = "6 SLAMs that can be planted on walls.",
 					category = "Explosives",
 					results = {
-						{"ent_jack_gmod_ezslam", 5}
+						{"ent_jack_gmod_ezslam", 6}
 					}
 				},
 				["antimatter"] = {
@@ -426,24 +457,24 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 					results = "ent_jack_gmod_ezantimatter"
 				},
 				["dynamite"] = {
-					description = "12 dynamite sticks for comical explosions.",
+					description = "9 dynamite sticks for comical explosions.",
 					category = "Explosives",
 					results = {
-						{"ent_jack_gmod_ezdynamite", 12}
+						{"ent_jack_gmod_ezdynamite", 9}
 					}
 				},
 				["flashbangs"] = {
-					description = "8 flashbangs that stun targets.",
+					description = "6 flashbangs that stun targets.",
 					category = "Other",
 					results = {
-						{"ent_jack_gmod_ezflashbang", 8}
+						{"ent_jack_gmod_ezflashbang", 6}
 					}
 				},
 				["powder kegs"] = {
-					description = "4 powder kegs for funny explosions.",
+					description = "3 powder kegs for funny explosions.",
 					category = "Explosives",
 					results = {
-						{"ent_jack_gmod_ezpowderkeg", 4}
+						{"ent_jack_gmod_ezpowderkeg", 3}
 					}
 				},
 				["smoke grenades"] = {
@@ -477,24 +508,24 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 					}
 				},
 				["thermal goggles"] = {
-					description = "2 thermal goggles that highlight heat-sources for the user. Consumes battery.",
+					description = "Thermal goggles that highlight heat-sources for the user. Consumes battery.",
 					category = "Apparel",
 					results = {
-						{"ent_jack_gmod_ezarmor_thermals", 2}
+						{"ent_jack_gmod_ezarmor_thermals", 1}
 					}
 				},
 				["night vision goggles"] = {
-					description = "4 night-vision goggles to help players see in the dark. Consumes battery.",
+					description = "2 night-vision goggles to help players see in the dark. Consumes battery.",
 					category = "Apparel",
 					results = {
-						{"ent_jack_gmod_ezarmor_nvgs", 4}
+						{"ent_jack_gmod_ezarmor_nvgs", 2}
 					}
 				},
 				["headsets"] = {
-					description = "8 headsets for players to communicate and make orders from linked radios. Consumes battery.",
+					description = "5 headsets for players to communicate and make orders from linked radios. Consumes battery.",
 					category = "Apparel",
 					results = {
-						{"ent_jack_gmod_ezarmor_headset", 8}
+						{"ent_jack_gmod_ezarmor_headset", 5}
 					}
 				},
 				["steel"] = {
@@ -651,30 +682,6 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 			-- String starting with FUNC direct to function
 			-- A table with the setup {class, number} will spawn that number of class
 			-- If you add a second number to that table, if the class is an EZ resource, it will attempt to set the resource to that number
-			["EZ Nail"] = {
-				results = "FUNC EZnail",
-				craftingReqs = {
-					[JMod.EZ_RESOURCE_TYPES.BASICPARTS] = 5
-				},
-				oneHanded = true,
-				noSound = true,
-				sizeScale = .05,
-				category = "Other",
-				craftingType = "toolbox",
-				description = "Binds the object you're looking at to the object behind it"
-			},
-			["EZ Bolt"] = {
-				results = "FUNC EZbolt",
-				craftingReqs = {
-					[JMod.EZ_RESOURCE_TYPES.BASICPARTS] = 8
-				},
-				oneHanded = true,
-				noSound = true,
-				sizeScale = .05,
-				category = "Other",
-				craftingType = "toolbox",
-				description = "Creates a single axis bearing for conecting rotating objects"
-			},
 			["EZ Box"] = {
 				results = "FUNC EZbox",
 				craftingReqs = {
@@ -1207,25 +1214,69 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 				craftingType = "toolbox",
 				description = "Machine for watering trees and other EZ crops."
 			},
-			["HL2 Buggy"] = {
-				results = "FUNC spawnHL2buggy",
+			["EZ Jet Module"] = {
+				results = "ent_aboot_gmod_ezarmor_jetmodule_admin",
 				craftingReqs = {
-					[JMod.EZ_RESOURCE_TYPES.STEEL] = 300,
-					[JMod.EZ_RESOURCE_TYPES.BASICPARTS] = 200,
-					[JMod.EZ_RESOURCE_TYPES.POWER] = 50,
-					[JMod.EZ_RESOURCE_TYPES.PRECISIONPARTS] = 100,
-					[JMod.EZ_RESOURCE_TYPES.FUEL] = 300,
-					[JMod.EZ_RESOURCE_TYPES.AMMO] = 200
+					[JMod.EZ_RESOURCE_TYPES.PRECISIONPARTS] = 50,
+					[JMod.EZ_RESOURCE_TYPES.STEEL] = 50,
+					[JMod.EZ_RESOURCE_TYPES.ALUMINUM] = 20,
+					[JMod.EZ_RESOURCE_TYPES.PLASTIC] = 10,
+					[JMod.EZ_RESOURCE_TYPES.GLASS] = 10,
+					[JMod.EZ_RESOURCE_TYPES.COPPER] = 30,
+					[JMod.EZ_RESOURCE_TYPES.GOLD] = 10,
+					[JMod.EZ_RESOURCE_TYPES.PROPELLANT] = 100
 				},
-				sizeScale = 4,
 				category = "Other",
 				craftingType = "toolbox",
-				description = "Gordon, remember to bring back the scout car."
+				description = "Latest peek of technology. Allows user to fly! (On short distances)."
 			},
-			["EZ Basic Parts, x100"] = {
-				results = "ent_jack_gmod_ezbasicparts",
+			["EZ Jump Module"] = {
+				results = "ent_aboot_gmod_ezarmor_jumpmodule_admin",
+				craftingReqs = {
+					[JMod.EZ_RESOURCE_TYPES.PRECISIONPARTS] = 40,
+					[JMod.EZ_RESOURCE_TYPES.STEEL] = 40,
+					[JMod.EZ_RESOURCE_TYPES.ALUMINUM] = 15,
+					[JMod.EZ_RESOURCE_TYPES.GLASS] = 10,
+					[JMod.EZ_RESOURCE_TYPES.COPPER] = 30,
+					[JMod.EZ_RESOURCE_TYPES.GOLD] = 10,
+					[JMod.EZ_RESOURCE_TYPES.PROPELLANT] = 75
+				},
+				category = "Other",
+				craftingType = "toolbox",
+				description = "Latest peek of technology. Allows user to jump really high! (On short distances)."
+			},
+			["EZ Super Combine Suit"] = {
+				results = "ent_aboot_gmod_ezarmor_combinesuit",
 				craftingReqs = {
 					[JMod.EZ_RESOURCE_TYPES.STEEL] = 50,
+					[JMod.EZ_RESOURCE_TYPES.ALUMINUM] = 20,
+					[JMod.EZ_RESOURCE_TYPES.PLASTIC] = 10,
+					[JMod.EZ_RESOURCE_TYPES.GLASS] = 10,
+					[JMod.EZ_RESOURCE_TYPES.COPPER] = 30,
+					[JMod.EZ_RESOURCE_TYPES.GOLD] = 10,
+				},
+				category = "Other",
+				craftingType = "toolbox",
+				description = "Great defesnive armor straight from our combine partners."
+			},
+			["EZ HEV Suit"] = {
+				results = "ent_aboot_gmod_ezarmor_hev",
+				craftingReqs = {
+					[JMod.EZ_RESOURCE_TYPES.STEEL] = 50,
+					[JMod.EZ_RESOURCE_TYPES.ALUMINUM] = 20,
+					[JMod.EZ_RESOURCE_TYPES.PLASTIC] = 10,
+					[JMod.EZ_RESOURCE_TYPES.GLASS] = 10,
+					[JMod.EZ_RESOURCE_TYPES.COPPER] = 30,
+					[JMod.EZ_RESOURCE_TYPES.GOLD] = 10,
+				},
+				category = "Other",
+				craftingType = "toolbox",
+				description = "Great defesnive armor straight from our rebel partners."
+			},
+			["EZ Basic Parts, x105"] = {
+				results = "ent_jack_gmod_ezbasicparts",
+				craftingReqs = {
+					[JMod.EZ_RESOURCE_TYPES.STEEL] = 500,
 					[JMod.EZ_RESOURCE_TYPES.ALUMINUM] = 30,
 					[JMod.EZ_RESOURCE_TYPES.PLASTIC] = 20,
 					[JMod.EZ_RESOURCE_TYPES.GLASS] = 10,
@@ -2127,22 +2178,6 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 	JMod.LuaConfig.BuildFuncs = JMod.LuaConfig.BuildFuncs or {}
 	JMod.LuaConfig.ArmorOffsets = JMod.LuaConfig.ArmorOffsets or {}
 
-	JMod.LuaConfig.BuildFuncs.spawnHL2buggy = function(playa, position, angles)
-		local Ent = ents.Create("prop_vehicle_jeep_old")
-		Ent:SetModel("models/buggy.mdl")
-		Ent:SetKeyValue("vehiclescript", "scripts/vehicles/jeep_test.txt")
-		Ent:SetPos(position)
-		Ent:SetAngles(angles)
-		JMod.SetEZowner(Ent, playa)
-		Ent:Spawn()
-		Ent:Activate()
-	end
-	JMod.LuaConfig.BuildFuncs.EZnail = function(playa, position, angles)
-		JMod.Nail(playa)
-	end
-	JMod.LuaConfig.BuildFuncs.EZbolt = function(playa, position, angles)
-		JMod.Bolt(playa)
-	end
 	JMod.LuaConfig.BuildFuncs.EZbox = function(playa, position, angles)
 		JMod.Package(playa)
 	end
@@ -2225,8 +2260,6 @@ hook.Add("Initialize", "JMOD_Initialize", function()
 end)
 
 hook.Add("JMod_CanKitBuild", "JMOD_KitBuildReqs", function(playa, toolbox, buildInfo)
-	if (buildInfo.results == "FUNC EZnail") and not JMod.FindNailPos(playa) then return false, "No applicable nail pos" end
-	if (buildInfo.results == "FUNC EZbolt") and not JMod.FindBoltPos(playa) then return false, "No applicable bolt pos" end
 	if (buildInfo.results == "FUNC EZbox") and not JMod.GetPackagableObject(playa) then 
 		local _, Message = JMod.GetPackagableObject(playa) 
 		

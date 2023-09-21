@@ -442,6 +442,35 @@ function JMod.RemoveArmorByID(ply, ID, broken)
 	ply.EZarmor.items[ID] = nil
 end
 
+-- Fill in here all the armor pieces not to destory but to drop (not an entity class, but internal jmod name)
+local DropInsteadDestroying = {
+	["Admin Jet Module"] = true,
+	["Admin Jump Module"] = true,
+	["NightVisionGoggles"] = true,
+	["ThermalGoggles"] = true,
+}
+-- Fill in here all the armor pieces not to destory but to drop (not an entity class, but internal jmod name)
+local KeepInsteadDestroying = {
+	["Headset"] = true,
+}
+
+-- Destroys all armour on player on death
+hook.Add( "PostPlayerDeath", "JMOD_DestroyItemsOnDeath", function( ply)
+	for k, v in pairs(ply.EZarmor.items) do
+		print(v.name)
+		if( KeepInsteadDestroying[v.name] )then
+			continue 
+		end
+		if( DropInsteadDestroying[v.name] )then
+			JMod.RemoveArmorByID(ply, k, false)
+		else
+			JMod.RemoveArmorByID(ply, k, true)
+		end
+	end
+
+	JMod.EZarmorSync(ply)
+end )
+
 local function GetArmorBySlot(currentArmorItems, slot)
 	for id, currentArmorData in pairs(currentArmorItems) do
 		if JMod.ArmorTable[currentArmorData.name].slots[slot] ~= nil then return id, currentArmorData end
