@@ -61,7 +61,7 @@ if SERVER then
 		if istable(WireLib) then
 			self.Inputs = WireLib.CreateInputs(self, {"Detonate", "Arm"}, {"This will directly detonate the bomb", "Arms bomb when > 0"})
 
-			self.Outputs = WireLib.CreateOutputs(self, {"State"}, {"1 is armed \n 0 is not \n -1 is broken \n 2 is arming"})
+			self.Outputs = WireLib.CreateOutputs(self, {"State"}, {"-1 is broken \n 0 is unarmed \n 1 is arming \n 2 is armed \n 3 is warning"})
 		end
 
 		---

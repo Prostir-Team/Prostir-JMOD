@@ -61,7 +61,7 @@ if(SERVER)then
 			else
 				for i = 1, math.random(1, 3) do
 					local Corn = ents.Create("ent_jack_gmod_ezcornear")
-					Corn:SetPos(SpawnPos + VectorRand(-10, 10))
+					Corn:SetPos(self:GetPos() + (SpawnPos*i) + VectorRand(-10, 10))
 					Corn:SetAngles(AngleRand())
 					Corn:Spawn()
 					Corn:Activate()
@@ -71,7 +71,6 @@ if(SERVER)then
 	end
 
 	function ENT:PhysicsCollide(data, physobj)
-		--jprint("Cutting colision", data.DeltaTime)
 		if (data.Speed > 80) and (data.DeltaTime > 0.2) then
 			self:EmitSound("Dirt.Impact", 100, 80)
 			self:EmitSound("Dirt.Impact", 100, 80)
@@ -84,7 +83,6 @@ if(SERVER)then
 					local CrushDamage = DamageInfo()
 					CrushDamage:SetDamage(math.floor(PhysDamage))
 					CrushDamage:SetDamageType(DMG_CRUSH)
-					--CrushDamage:SetDamageForce(data.TheirOldVelocity / 1000)
 					CrushDamage:SetDamagePosition(data.HitPos)
 					self:TakeDamageInfo(CrushDamage)
 				end
@@ -152,6 +150,13 @@ if(SERVER)then
 				else
 					self.Growth = math.Clamp(self.Growth + Growth, 0, 100)
 				end
+				if self.Growth > 66 then
+					if (math.random(1, 2) == 1) then
+						local Leaf = EffectData()
+						Leaf:SetOrigin(SelfPos + Vector(0, 0, 100))
+						util.Effect("eff_jack_gmod_ezcorndust", Leaf, true, true)
+					end
+				end
 				local WaterLoss = math.Clamp(1 - Water, .05, 1)
 				self.Hydration = math.Clamp(self.Hydration - WaterLoss, 0, 100)
 			else
@@ -160,9 +165,135 @@ if(SERVER)then
 			self:UpdateAppearance()
 		end
 		--
+		if self.Mutated and (math.random(0, 2) == 1) then
+			local Target = self:FindTarget()
+			if (IsValid(Target)) and (SelfPos:Distance(Target:GetPos()) > 120) then 
+				local RandVec = Vector(math.random(-1, 1), math.random(-1, 1), 0) * 100
+				local DesiredPosition = Target:GetPos() + RandVec
+				local Moved = self:TryMoveTowardPoint(DesiredPosition)
+
+				if not(Moved) then
+					self:TryMoveRandomly()
+				end
+			end
+		end
+		--
 		self:NextThink(Time + math.Rand(2, 4))
 		return true
 	end
+
+	--[[ START GNOME CODE ]]--
+	function ENT:FindTarget()
+		local SelfPos = self:GetPos()
+		if IsValid(self.StalkTarget) then
+			return self.StalkTarget
+		else
+			local RandomTarg = nil--table.Random(player.GetAll())
+			for k, v in ipairs(ents.FindByClass("ent_jack_gmod_ezsprinkler")) do
+				if not(IsValid(RandomTarg)) then
+					RandomTarg = v
+				elseif v:GetPos():DistToSqr(RandomTarg:GetPos()) < SelfPos:DistToSqr(RandomTarg:GetPos()) then
+					RandomTarg = v
+				end
+			end
+			self.StalkTarget = RandomTarg
+			return RandomTarg
+		end
+		return nil
+	end
+
+	function ENT:FindGroundAt(pos)
+		local Tr = util.QuickTrace(pos + Vector(0, 0, 30), Vector(0, 0, -300), {self})
+
+		if Tr.Hit and not Tr.StartSolid then return Tr.HitPos end
+
+		return nil
+	end
+
+	function ENT:IsLocationClear(pos)
+		local Tr = util.QuickTrace(pos + Vector(0, 0, 100), Vector(0, 0, -200), self)
+		if (Tr.Hit) then
+			self.InstalledMat = Tr.MatType
+			return (table.HasValue(self.UsableMats, self.InstalledMat))
+		end
+		return false
+	end
+
+	function ENT:TryMoveTowardPoint(pos)
+		local SelfPos = self:GetPos()
+		local Dir = (pos - SelfPos):GetNormalized()
+		local NewPos = SelfPos + Dir * 100 * (self.Restlessness or 2)
+		local NewGroundPos = self:FindGroundAt(NewPos)
+
+		if NewGroundPos then
+			if not self:IsLocationBeingWatched(NewGroundPos) then
+				if self:IsLocationClear(NewGroundPos) then
+					self:SnapTo(NewGroundPos)
+
+					return true
+				end
+			end
+		end
+
+		return false
+	end
+
+	function ENT:TryMoveRandomly()
+		local SelfPos = self:GetPos()
+		local Dir = VectorRand()
+		local NewPos = SelfPos + Dir * 50 * 1
+		local NewGroundPos = self:FindGroundAt(NewPos)
+
+		if NewGroundPos then
+			if not self:IsLocationBeingWatched(NewGroundPos) then
+				if self:IsLocationClear(NewGroundPos) then
+					self:SnapTo(NewGroundPos)
+
+					return true
+				end
+			end
+		end
+
+		return false
+	end
+
+	function ENT:SnapTo(pos)
+		local Yaw = (pos - self:GetPos()):GetNormalized():Angle().y
+		self:SetPos(pos)
+		self:SetAngles(Angle(0, Yaw, 0))
+		self:TryPlant()
+	end
+
+	function ENT:IsLocationBeingWatched(pos)
+		--if(true)then return false end
+		local PotentialObservers = table.Merge(ents.FindByClass("gmod_cameraprop"), player.GetAll())
+
+		for k, obs in pairs(PotentialObservers) do
+			local ObsPos = (obs.GetShootPos and obs:GetShootPos()) or obs:GetPos()
+			local DirectVec = ObsPos - pos
+			local DirectDir = DirectVec:GetNormalized()
+			local FacingDir = (obs.GetAimVector and obs:GetAimVector()) or obs:GetForward()
+			local ApproachAngle = -math.deg(math.asin(DirectDir:Dot(FacingDir)))
+
+			if ApproachAngle > 30 then
+				local Dist = DirectVec:Length()
+
+				if Dist < 5000 then
+					local Tr = util.TraceLine({
+						start = pos,
+						endpos = ObsPos,
+						filter = {self, obs},
+						mask = MASK_SHOT - CONTENTS_WINDOW
+					})
+
+					if not Tr.Hit then return true end
+				end
+			end
+		end
+
+		return false
+	end
+	--[[ END GNOME CODE ]]--
 
 	function ENT:Use(activator)
 		local Alt = activator:KeyDown(JMod.Config.General.AltFunctionKey)
@@ -200,6 +331,7 @@ if(SERVER)then
 
 		if self.Mutated then
 			CornColor = Color(180, 184, 145)
+			NewCornMat = "corn01t_d"
 		end
 		if CornColor then
 			self:SetColor(CornColor)
