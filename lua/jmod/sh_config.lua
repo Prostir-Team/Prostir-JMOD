@@ -162,6 +162,24 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 						JMod.ArmorTable["Hazmat Suit"].ent, 6}
 					}
 				},
+				["juggernuts"] = {
+					description = "Heavy collection of armor.",
+					category = "Apparel",
+					results = {
+						{JMod.ArmorTable["GasMask"].ent, 				 
+						JMod.ArmorTable["Ultra-Heavy-Helmet"].ent, 
+						JMod.ArmorTable["Heavy-Vest"].ent, 
+						JMod.ArmorTable["Pelvis-Panel"].ent, 
+						JMod.ArmorTable["Heavy-Left-Shoulder"].ent, 
+						JMod.ArmorTable["Heavy-Right-Shoulder"].ent, 
+						JMod.ArmorTable["Left-Forearm"].ent, 
+						JMod.ArmorTable["Right-Forearm"].ent, 
+						JMod.ArmorTable["Heavy-Left-Thigh"].ent, 
+						JMod.ArmorTable["Heavy-Right-Thigh"].ent, 
+						JMod.ArmorTable["Left-Calf"].ent, 
+						JMod.ArmorTable["Right-Calf"].ent, 12}
+					}
+				},
 				["basic parts"] = {
 					description = "300 units of Basic Parts, used for most crafting and machine repairs.",
 					category = "Resources",
@@ -684,7 +702,7 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 					}
 				},
 			},
-			RestrictedPackages = {"antimatter", "bioweapon canister", "fissile material"},
+			RestrictedPackages = {"antimatter", "bioweapon canister", "fissile material", "juggernuts"},
 			RestrictedPackageShipTime = 600,
 			RestrictedPackagesAllowed = true
 		},
