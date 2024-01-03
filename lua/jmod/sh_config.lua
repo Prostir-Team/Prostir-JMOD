@@ -900,6 +900,18 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 				craftingType = "toolbox",
 				description = "Cluster bomb that can pierce multiple hard targets from the air."
 			},
+						["EZ Cluster Mine layer"] = {
+				results = "ent_jack_gmod_ezclusterminebomb",
+				craftingReqs = {
+					[JMod.EZ_RESOURCE_TYPES.BASICPARTS] = 100,
+					[JMod.EZ_RESOURCE_TYPES.EXPLOSIVES] = 300,
+					[JMod.EZ_RESOURCE_TYPES.PRECISIONPARTS] = 450
+				},
+				sizeScale = 1,
+				category = "Explosives",
+				craftingType = "toolbox",
+				description = "Cluster mine bomb."
+			},
             ["EZ War Mine"] = {
 				results = "ent_jack_gmod_ezwarmine",
 				craftingReqs = {
@@ -996,6 +1008,41 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 				category = "Machines",
 				craftingType = "toolbox",
 				description = "Takes a couple minutes to spin up, and then creates an impossibly weak black hole that scales with time."
+			},
+			["EZ TeleNade"] = {
+				results = "ent_aboot_gmod_eztelenade",
+				craftingReqs = {
+					[JMod.EZ_RESOURCE_TYPES.ADVANCEDPARTS] = 5,
+					[JMod.EZ_RESOURCE_TYPES.PRECISIONPARTS] = 10,
+					[JMod.EZ_RESOURCE_TYPES.POWER] = 5,
+					[JMod.EZ_RESOURCE_TYPES.ANTIMATTER] = 10
+				},
+				sizeScale = 2,
+				category = "HL2",
+				craftingType = "workbench",
+				description = "Takes a couple minutes to spin up, and then creates an impossibly weak black hole that scales with time."
+			},
+			["EZ Shipping Container"] = {
+				results = "ent_aboot_gmod_ezshippingcontainer",
+				craftingReqs = {
+				[JMod.EZ_RESOURCE_TYPES.STEEL] = 200,
+				},
+				sizeScale = 2,
+				category = "HL2",
+				craftingType = "toolbox",
+				description = "Container"
+			},
+			["EZ Copter Bomb"] = {
+				results = "ent_aboot_gmod_ezhelibomb",
+				craftingReqs = {
+					[JMod.EZ_RESOURCE_TYPES.PRECISIONPARTS] = 25,
+					[JMod.EZ_RESOURCE_TYPES.EXPLOSIVES] = 250,
+					[JMod.EZ_RESOURCE_TYPES.BASICPARTS] = 100
+				},
+				sizeScale = 2,
+				category = "HL2",
+				craftingType = "toolbox",
+				description = "Combine heli bomb."
 			},
 			["EZ Micro Nuclear Bomb"] = {
 				results = "ent_jack_gmod_eznuke",
@@ -1267,8 +1314,8 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 					[JMod.EZ_RESOURCE_TYPES.GOLD] = 10,
 					[JMod.EZ_RESOURCE_TYPES.PROPELLANT] = 100
 				},
-				category = "Other",
-				craftingType = "toolbox",
+				category = "HL2",
+				craftingType = "workbench",
 				description = "Latest peek of technology. Allows user to fly! (On short distances)."
 			},
 			["EZ Jump Module"] = {
@@ -1282,9 +1329,41 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 					[JMod.EZ_RESOURCE_TYPES.GOLD] = 10,
 					[JMod.EZ_RESOURCE_TYPES.PROPELLANT] = 75
 				},
-				category = "Other",
-				craftingType = "toolbox",
+				category = "HL2",
+				craftingType = "workbench",
 				description = "Latest peek of technology. Allows user to jump really high! (On short distances)."
+			},
+			["EZ Welding Mask"] = {
+				results = "ent_aboot_gmod_ezarmor_weldingmask",
+				craftingReqs = {
+					[JMod.EZ_RESOURCE_TYPES.STEEL] = 40,
+					[JMod.EZ_RESOURCE_TYPES.GLASS] = 10,
+				},
+				category = "HL2",
+				craftingType = "workbench",
+				description = "Welding Mask."
+			},
+			["EZ Hornet mine"] = {
+				results = "ent_aboot_gmod_ezhopperhornet",
+				craftingReqs = {
+					[JMod.EZ_RESOURCE_TYPES.PRECISIONPARTS] = 15,
+					[JMod.EZ_RESOURCE_TYPES.BASICPARTS] = 10,
+					[JMod.EZ_RESOURCE_TYPES.EXPLOSIVES] = 20
+				},
+				category = "HL2",
+				craftingType = "workbench",
+				description = "Hornet mine."
+			},
+			["EZ Hopper mine"] = {
+				results = "ent_aboot_gmod_ezhoppermine",
+				craftingReqs = {
+					[JMod.EZ_RESOURCE_TYPES.PRECISIONPARTS] = 10,
+					[JMod.EZ_RESOURCE_TYPES.BASICPARTS] = 25,
+					[JMod.EZ_RESOURCE_TYPES.EXPLOSIVES] = 15
+				},
+				category = "HL2",
+				craftingType = "workbench",
+				description = "ent_aboot_gmod_ezhoppermine."
 			},
 			["EZ Super Combine Suit"] = {
 				results = "ent_aboot_gmod_ezarmor_combinesuit",
@@ -1296,9 +1375,20 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 					[JMod.EZ_RESOURCE_TYPES.COPPER] = 30,
 					[JMod.EZ_RESOURCE_TYPES.GOLD] = 10,
 				},
-				category = "Other",
+				category = "HL2",
 				craftingType = "toolbox",
 				description = "Great defesnive armor straight from our combine partners."
+			},
+			["EZ Thumper"] = {
+				results = "ent_aboot_gmod_ezthumper",
+				craftingReqs = {
+					[JMod.EZ_RESOURCE_TYPES.STEEL] = 150,
+					[JMod.EZ_RESOURCE_TYPES.PRECISIONPARTS] = 100,
+					[JMod.EZ_RESOURCE_TYPES.BASICPARTS] = 300
+				},
+				category = "HL2",
+				craftingType = "toolbox",
+				description = "Thumper."
 			},
 			["EZ HEV Suit"] = {
 				results = "ent_aboot_gmod_ezarmor_hev",
@@ -1310,7 +1400,7 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 					[JMod.EZ_RESOURCE_TYPES.COPPER] = 30,
 					[JMod.EZ_RESOURCE_TYPES.GOLD] = 10,
 				},
-				category = "Other",
+				category = "HL2",
 				craftingType = "toolbox",
 				description = "Great defesnive armor straight from our rebel partners."
 			},
