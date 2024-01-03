@@ -90,6 +90,12 @@ if(SERVER)then
 		-- todo: useEffects
 	end
 	function ENT:Use(activator)
+
+		if activator:BuildMode() then
+			activator:PrintMessage(HUD_PRINTCENTER, "Вийди з режиму будівельника!")
+			return
+		end
+
 		if(self:GetState()==STATE_FINE)then
 			if(self:GetElectricity()>0 and self:GetGas()>0)then
 				net.Start("JMod_EZworkbench")

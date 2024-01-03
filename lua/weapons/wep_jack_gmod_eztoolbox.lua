@@ -383,6 +383,16 @@ end
 
 function SWEP:PrimaryAttack()
 	if self.Owner:KeyDown(IN_SPEED) then return end
+
+	if SERVER then
+		if self:GetOwner():BuildMode() then
+			self:GetOwner():PrintMessage(HUD_PRINTCENTER, "Вийди з режиму будівельника!")
+			return 
+		end
+	end
+
+
+
 	self:Pawnch()
 	self:SetNextPrimaryFire(CurTime() + .6)
 	self:SetNextSecondaryFire(CurTime() + 1)
@@ -573,6 +583,12 @@ end
 
 function SWEP:Reload()
 	if SERVER then
+
+		if self.Owner:BuildMode() then
+			self.Owner:PrintMessage(HUD_PRINTCENTER, "Вийди з режиму будівельника!")
+			return 
+		end
+
 		local Time = CurTime()
 
 		if self.Owner:KeyDown(JMod.Config.General.AltFunctionKey) then
@@ -753,6 +769,15 @@ function SWEP:Think()
 		self:SetHoldType("fist")
 
 		if self.Owner:KeyDown(IN_ATTACK2) then
+
+			if SERVER then
+				if self:GetOwner():BuildMode() then
+					self:GetOwner():PrintMessage(HUD_PRINTCENTER, "Вийди з режиму будівельника!")
+					return 
+				end
+			end
+
+
 			if self.NextTaskProgress < Time then
 				self.NextTaskProgress = Time + .6
 				local Alt = self.Owner:KeyDown(JMod.Config.General.AltFunctionKey)

@@ -97,7 +97,8 @@ if(SERVER)then
 		if self.NextUseTime > Time then return end
 		self.NextUseTime = Time + .25
 
-		if activator:IsPlayer() then
+		if activator:IsPlayer() and !activator:BuildMode() then
+		--if activator:IsPlayer() then
 			local State = self:GetState()
 
 			if State == STATE_BROKEN then
@@ -128,6 +129,7 @@ if(SERVER)then
 					JMod.Hint(self.EZowner, "nopower")
 				end
 			end
+		elseif activator:BuildMode() then activator:PrintMessage(HUD_PRINTCENTER, "Вийди з режиму будівельника!")
 		end
 	end
 

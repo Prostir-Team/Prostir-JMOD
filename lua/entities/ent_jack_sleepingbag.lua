@@ -120,8 +120,18 @@ elseif (SERVER) then
 	end
 
 	function ENT:Use(ply)
-		if not (ply:IsPlayer()) then return end
+
+		if not (ply:IsPlayer()) then
+			return 
+		end
+
+		if ply:BuildMode() then
+			ply:PrintMessage(HUD_PRINTCENTER, "Вийди з режиму будівельника!")
+			return
+		end
+
 		local Alt = ply:KeyDown(JMod.Config.General.AltFunctionKey)
+		
 		if not IsValid(self.Pod) then self:CreatePod() end
 		if (Alt) then
 			if (self.State == STATE_UNROLLED) then

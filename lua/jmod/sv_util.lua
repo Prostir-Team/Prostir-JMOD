@@ -380,7 +380,9 @@ function JMod.WreckBuildings(blaster, pos, power, range, ignoreVisChecks)
 	local allProps = ents.FindInSphere(pos, maxRange)
 
 	for k, prop in pairs(allProps) do
+
 		if not (table.HasValue(WreckBlacklist, prop:GetClass()) or hook.Run("JMod_CanDestroyProp", prop, blaster, pos, power, range, ignore) == false or prop.ExplProof == true) then
+
 			local physObj = prop:GetPhysicsObject()
 			local propPos = prop:LocalToWorld(prop:OBBCenter())
 			local DistFrac = 1 - propPos:Distance(pos) / maxRange
@@ -621,6 +623,7 @@ end
 function JMod.SetEZowner(ent, newOwner, setColor)
 	if not IsValid(ent) then return end
 	if not IsValid(newOwner) then newOwner = game.GetWorld() end
+	if newOwner:IsPlayer() and newOwner:BuildMode() then return end
 
 	if JMod.GetEZowner(ent) == newOwner then
 		if setColor == true then
