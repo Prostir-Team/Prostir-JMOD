@@ -285,7 +285,7 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 				},
 				["micro farm"] = {
 					description = "Micro money printer",
-					category = "Money",
+					category = "Other",
 					results = {
 						{"prsbox_karbowanecfarm_micro", 1}
 					}
@@ -318,7 +318,7 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 				},
 				["karbowanec upgrade"] = {
 					description = "Make money printer more powerful",
-					category = "Money",
+					category = "Other",
 					results = "prsbox_farmupgrade"
 				},
 				["storage crate"] = {
@@ -1103,7 +1103,7 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 					[JMod.EZ_RESOURCE_TYPES.ADVANCEDPARTS] = 120,
 				},
 				sizeScale = 2,
-				category = "Money",
+				category = "Other",
 				craftingType = "toolbox",
 				description = "Tutorial how to Mr.Crabs"
 			},
