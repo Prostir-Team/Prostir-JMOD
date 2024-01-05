@@ -1098,9 +1098,9 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 				results = "prsbox_karbowanecfarm",
 				craftingReqs = {
 					[JMod.EZ_RESOURCE_TYPES.BASICPARTS] = 250,
-					[JMod.EZ_RESOURCE_TYPES.PRECISIONPARTS] = 100,
+					[JMod.EZ_RESOURCE_TYPES.PRECISIONPARTS] = 50,
 					[JMod.EZ_RESOURCE_TYPES.STEEL] = 100,
-					[JMod.EZ_RESOURCE_TYPES.ADVANCEDPARTS] = 120,
+					[JMod.EZ_RESOURCE_TYPES.ADVANCEDPARTS] = 30,
 				},
 				sizeScale = 2,
 				category = "Other",
