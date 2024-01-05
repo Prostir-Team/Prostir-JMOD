@@ -283,6 +283,13 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 						{"ent_jack_gmod_eztoolbox", 2}
 					}
 				},
+				["micro farm"] = {
+					description = "Micro money printer",
+					category = "Money",
+					results = {
+						{"prsbox_karbowanecfarm_micro", 1}
+					}
+				},
 				["rations"] = {
 					description = "500 units of Nutrients, to be eaten by players. Can overcharge health.",
 					category = "Resources",
@@ -308,6 +315,11 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 					description = "A box used for exclusively storing EZ Resources.",
 					category = "Other",
 					results = "ent_jack_gmod_ezcrate"
+				},
+				["karbowanec upgrade"] = {
+					description = "Make money printer more powerful",
+					category = "Money",
+					results = "prsbox_farmupgrade"
 				},
 				["storage crate"] = {
 					description = "A box used exclusively for storing Jmod items. Can hold a volume of up to 100 units.",
@@ -702,7 +714,7 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 					}
 				},
 			},
-			RestrictedPackages = {"antimatter", "bioweapon canister", "fissile material", "juggernuts"},
+			RestrictedPackages = {"antimatter", "bioweapon canister", "fissile material", "juggernuts", "karbowanec upgrade"},
 			RestrictedPackageShipTime = 600,
 			RestrictedPackagesAllowed = true
 		},
@@ -1081,6 +1093,19 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 				category = "Explosives",
 				craftingType = "toolbox",
 				description = "Ships beware! This mine is ready to send em to Davy Jones' locker!"
+			},
+			["EZ Karbowanec Printer"] = {
+				results = "prsbox_karbowanecfarm",
+				craftingReqs = {
+					[JMod.EZ_RESOURCE_TYPES.BASICPARTS] = 250,
+					[JMod.EZ_RESOURCE_TYPES.PRECISIONPARTS] = 100,
+					[JMod.EZ_RESOURCE_TYPES.STEEL] = 100,
+					[JMod.EZ_RESOURCE_TYPES.ADVANCEDPARTS] = 120,
+				},
+				sizeScale = 2,
+				category = "Money",
+				craftingType = "toolbox",
+				description = "Tutorial how to Mr.Crabs"
 			},
 			["EZ Nano Nuclear Bomb"] = {
 				results = "ent_jack_gmod_eznuke_small",
