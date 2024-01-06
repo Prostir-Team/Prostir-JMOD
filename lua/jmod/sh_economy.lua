@@ -678,13 +678,21 @@ local SpecializedSalvagingTable = {
 	}
 }
 
+local MaxMass = CreateConVar("jmod_maxmass", "2000", FCVAR_ARCHIVE)
+
+function JMod.GetMass( Ent, Phys )
+	if Ent.InitialMass then return Ent.InitialMass end
+	Ent.InitialMass = math.min( Phys:GetMass(), MaxMass:GetInt() )
+	return Ent.InitialMass
+end
+
 function JMod.GetSalvageYield(ent)
 	if not IsValid(ent) then return {}, "" end
 	local Class, Mdl = string.lower(ent:GetClass()), string.lower(ent:GetModel())
 	if ent:IsWorld() then return {}, "can't salvage the world" end
 	local Phys = ent:GetPhysicsObject()
 	if not IsValid(Phys) then return {}, "cannot salvage: invalid physics" end
-	local Mat, Mass = string.lower(Phys:GetMaterial()), Phys:GetMass()
+	local Mat, Mass = string.lower(Phys:GetMaterial()), JMod.GetMass( ent, Phys ) ^ .9
 	if not (Mat and Mass and (Mass > 0)) then return {}, "cannot salvage: corrupt physics" end
 	Mass = math.ceil(Mass ^ .9) -- exponent to keep yield from stupidheavy objects from ruining the game
 

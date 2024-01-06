@@ -754,68 +754,136 @@ function SWEP:CreateResourceEntity(pos, typ, amt)
 end
 
 function SWEP:Think()
-	local Time = CurTime()
-	local vm = self.Owner:GetViewModel()
-	local idletime = self.NextIdle
-
-	if idletime > 0 and Time > idletime then
-		vm:SendViewModelMatchingSequence(vm:LookupSequence("fists_idle_0" .. math.random(1, 2)))
+	local Time=CurTime()
+	local ply = self:GetOwner()
+	local vm = ply:GetViewModel()
+	local idletime=self.NextIdle
+	if( idletime>0 and Time>idletime )then
+		vm:SendViewModelMatchingSequence( vm:LookupSequence( "fists_idle_0" .. math.random( 1, 2 ) ) )
 		self:UpdateNextIdle()
 	end
-
-	if (self.Owner:KeyDown(IN_SPEED)) or (self.Owner:KeyDown(IN_ZOOM)) then
+	local Prog, SetAmt= self:GetTaskProgress(), nil
+	if ply:KeyReleased(IN_ATTACK) then
+		timer.Remove("JMod_EZtoolboxTimer")
+	end
+	if(ply:KeyDown(IN_SPEED))then
 		self:SetHoldType("normal")
 	else
 		self:SetHoldType("fist")
-
-		if self.Owner:KeyDown(IN_ATTACK2) then
+		if ply:KeyDown(IN_ATTACK2) and !ply:KeyDown(IN_ATTACK) then
 
 			if SERVER then
-				if self:GetOwner():BuildMode() then
-					self:GetOwner():PrintMessage(HUD_PRINTCENTER, "Вийди з режиму будівельника!")
-					return 
+				if ply:BuildMode() then
+					ply:PrintMessage(HUD_PRINTCENTER, "Вийди з режиму будівельника!")
+					return
 				end
 			end
 
-
-			if self.NextTaskProgress < Time then
-				self.NextTaskProgress = Time + .6
-				local Alt = self.Owner:KeyDown(JMod.Config.General.AltFunctionKey)
-				local Task = (Alt and "loosen") or "salvage"
-				local Tr = util.QuickTrace(self.Owner:GetShootPos(), self.Owner:GetAimVector() * 80, {self.Owner})
-				local Ent, Pos = Tr.Entity, Tr.HitPos
-
-				if IsValid(Ent) then
+			if(self.NextTaskProgress<Time)then
+				self.NextTaskProgress=Time+.6
+				SetAmt=0
+				local Alt = ply:KeyDown(IN_WALK)
+				local Tr=util.QuickTrace(ply:GetShootPos(),ply:GetAimVector()*80,{ply})
+				local Ent,Pos=Tr.Entity,Tr.HitPos
+				if(IsValid(Ent))then
+					local Phys = Ent:GetPhysicsObject()
+					local Task=(Alt and "loosen") or "salvage"
 					if Ent ~= self.TaskEntity or Task ~= self.CurTask then
 						self:SetTaskProgress(0)
 						self.TaskEntity = Ent
 						self.CurTask = Task
-					elseif IsValid(Ent:GetPhysicsObject()) then
-						local Message = JMod.EZprogressTask(Ent, Pos, self.Owner, (Alt and "loosen") or "salvage")
+					elseif IsValid(Phys) then
+						if Alt then-- loosen
+							if ( SERVER and constraint.HasConstraints(Ent) ) or not Phys:IsMotionEnabled() then
+								if ( Ent.UnLoosable ) then return end
+								JMod.Hint( ply,"work spread" )
+								local WorkSpreadMult = JMod.CalcWorkSpreadMult(Ent,Pos, ply)
+								
+								--[[net.Start(ParticleNetMsg)
+									net.WriteFloat( WorkSpreadMult )
+								net.Send( self:GetOwner() )]]
 
-						if Message then
-							self:Msg(Message)
-						else
-							self:Pawnch()
-							sound.Play("snds_jack_gmod/ez_tools/hit.wav", Pos + VectorRand(), 60, math.random(50, 70))
-							sound.Play("snds_jack_gmod/ez_dismantling/" .. math.random(1, 10) .. ".wav", Pos, 65, math.random(90, 110))
-							if SERVER then
-								JMod.Hint(self.Owner, "work spread")
-								self:SetTaskProgress(Ent:GetNW2Float("EZ"..Task.."Progress", 0))
-								timer.Simple(.1, function()
-									if IsValid(self) then
-										self:UpgradeEffect(Pos, 2, true)
-									end
+								local Mass = JMod.GetMass( Ent, Phys ) ^ .8
+								local AddAmt = 300 / Mass * WorkSpreadMult * 1
+								SetAmt = math.Clamp(Prog + AddAmt, 0, 100)
+
+								self:Pawnch()
+								sound.Play( "snds_jack_gmod/ez_tools/hit.wav", Pos + VectorRand(), 60, math.random(50,70) )
+								sound.Play( "snds_jack_gmod/ez_dismantling/" .. math.random(1,10) .. ".wav", Pos, 65, math.random(90,110) )
+
+								timer.Simple(.1,function()
+									if(IsValid(self))then self:UpgradeEffect(Pos,1,true) end
 								end)
+
+								if(Prog>=100)then
+									sound.Play("snds_jack_gmod/ez_tools/hit.wav",Pos+VectorRand(),70,math.random(50,60))
+									constraint.RemoveAll(Ent)
+
+									hook.Run("Jmod.Loosen", ply, Ent)
+
+									Phys:EnableMotion(true)
+									Phys:Wake()
+									SetAmt=0
+								end
+							else
+								ply:PrintMessage(HUD_PRINTCENTER,"object is already unconstrained")
 							end
-						end 
+						else-- salvage
+							if(SERVER)then
+								if(constraint.HasConstraints(Ent) or not Phys:IsMotionEnabled())then
+									ply:PrintMessage(HUD_PRINTCENTER,"object is constrained")
+								else
+									local Mass = JMod.GetMass( Ent, Phys ) ^ .8
+									local Yield,Msg=JMod.GetSalvageYield(Ent)
+									if( #table.GetKeys(Yield) <=0 )then
+										ply:PrintMessage(HUD_PRINTCENTER,Msg)
+									else
+										JMod.Hint(ply,"work spread")
+										local WorkSpreadMult = JMod.CalcWorkSpreadMult(Ent,Pos)
+
+										--[[net.Start(ParticleNetMsg)
+											net.WriteFloat( WorkSpreadMult )
+										net.Send( self:GetOwner() )]]
+
+										local AddAmt=250/Mass*WorkSpreadMult*1
+										SetAmt = math.Clamp(Prog+AddAmt,0,100)
+										self:Pawnch()
+
+										sound.Play("snds_jack_gmod/ez_tools/hit.wav",Pos+VectorRand(),60,math.random(50,70))
+										sound.Play("snds_jack_gmod/ez_dismantling/"..math.random(1,10)..".wav",Pos,65,math.random(90,110))
+
+										timer.Simple(.1,function()
+											if ( IsValid(self) ) then self:UpgradeEffect(Pos,2,true) end
+										end)
+
+										if(Prog>=100)then
+											sound.Play("snds_jack_gmod/ez_tools/hit.wav",Pos+VectorRand(),70,math.random(50,60))
+											for k,v in pairs(Yield)do
+												local AmtLeft=v
+												while AmtLeft>0 do
+													local Remove=math.min(AmtLeft,100)
+													self:CreateResourceEntity(Pos+VectorRand()*20+Vector(0,0,20),k,Remove)
+													AmtLeft=AmtLeft-Remove
+												end
+											end
+											hook.Run("Jmod.Salvaged", ply, Ent)
+											SafeRemoveEntity(Ent)
+											SetAmt=0
+										end
+									end
+								end
+							end
+						end
 					end
 				end
 			end
-		else
-			self:SetTaskProgress(0)
+		 else
+			SetAmt=0
+			self.TaskEntity = nil
+			self.CurTask = nil
 		end
 	end
+	if SERVER and SetAmt~=nil and !ply:KeyDown(IN_ATTACK) then self:SetTaskProgress(SetAmt) end
 end
 
 local LastProg = 0
