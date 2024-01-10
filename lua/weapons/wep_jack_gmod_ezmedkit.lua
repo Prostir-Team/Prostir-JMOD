@@ -322,6 +322,11 @@ function SWEP:PrimaryAttack()
 		local Ent, Pos, Norm = self:WhomIlookinAt()
 		local AimVec = self.Owner:GetAimVector()
 
+			if self.Owner:BuildMode() then
+				self.Owner:PrintMessage(HUD_PRINTCENTER, "Вийди з режиму будівельника!")
+				return
+			end
+
 		if IsValid(Ent) then
 			local Hit = false
 
@@ -440,8 +445,15 @@ function SWEP:SecondaryAttack()
 	if self:GetSupplies() <= 0 then return end
 
 	if SERVER then
+
+		if self.Owner:BuildMode() then
+			self.Owner:PrintMessage(HUD_PRINTCENTER, "Вийди з режиму будівельника!")
+			return
+		end
+
 		self:SetNextPrimaryFire(CurTime() + .65)
 		self:SetNextSecondaryFire(CurTime() + .85)
+
 		local Ent = self.Owner
 		local AimVec = Ent:GetAimVector()
 		local Pos = Ent:GetShootPos() - Vector(0, 0, 10) + AimVec * 5
