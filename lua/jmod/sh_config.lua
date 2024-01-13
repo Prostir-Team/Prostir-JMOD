@@ -166,8 +166,7 @@ function JMod.InitGlobalConfig(forceNew, configToApply)
 					description = "Heavy collection of armor.",
 					category = "Apparel",
 					results = {
-						{JMod.ArmorTable["GasMask"].ent, 				 
-						JMod.ArmorTable["Ultra-Heavy-Helmet"].ent, 
+						{JMod.ArmorTable["Ultra-Heavy-Helmet"].ent, 
 						JMod.ArmorTable["Heavy-Vest"].ent, 
 						JMod.ArmorTable["Pelvis-Panel"].ent, 
 						JMod.ArmorTable["Heavy-Left-Shoulder"].ent, 
